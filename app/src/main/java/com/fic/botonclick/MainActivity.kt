@@ -27,4 +27,18 @@ class MainActivity : AppCompatActivity() {
         }
         Log.d("Ciclo", "onCreate")
     }
+    // 1. Guardamos el dato antes de que se destruya la pantalla
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt("mi_contador", contador)
+    }
+
+    // 2. Recuperamos el dato al volver a crear la pantalla
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        contador = savedInstanceState.getInt("mi_contador")
+        // IMPORTANTE: Actualiza el texto del botón para que se vea el cambio
+        val boton = findViewById<Button>(R.id.Boton)
+        boton.text = contador.toString()
+    }
 }
